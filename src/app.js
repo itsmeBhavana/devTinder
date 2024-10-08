@@ -1,32 +1,31 @@
 const express = require("express");
+const { connectDB } = require("./config/database");
+const User = require("./models/user");
 
 const app = express(); // creating a new app from express
 
-const { adminAuth, userAuth } = require("./middleware/auth");
-
-app.use("/admin", adminAuth);
-
-app.post("/user/login", userAuth, (req, res) => {
-  res.send("User is logged in successfully");
-});
-
-app.get("/user/data", (req, res) => {
+app.post("/signup", async (req, res) => {
+  const user = new User({
+    firstName: "Gowtham",
+    lastName: "Chinku",
+    emailId: "gowtham@gmail.com",
+    password: "bhavana@123",
+  }); //creating a new instance of the user model
   try {
-    throw new Error("Invalid data");
-    res.send("User data sent");
+    await user.save();
+    res.send("User added sucessfully");
   } catch (err) {
-    res.status(500).send("Contact Support!!");
+    res.status(400).send("Error sending the message:", err.message);
   }
 });
 
-app.get("/admin/data", (req, res) => {
-  res.send("All the admin data sent");
-});
-
-app.use("/", (err, req, res, next) => {
-  res.status(500).send("Error needs to be handled");
-});
-
-app.listen(7777, () => {
-  console.log("Server is successfully listening on Port 7777...");
-}); //callback function is executed when the server is up and running
+connectDB()
+  .then(() => {
+    console.log("Database connection established");
+    app.listen(7777, () => {
+      console.log("Server is successfully listening on Port 7777...");
+    }); //callback function is executed when the server is up and running
+  })
+  .catch((err) => {
+    console.error("Database cannot be connected");
+  });
