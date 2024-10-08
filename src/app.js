@@ -2,13 +2,30 @@ const express = require("express");
 
 const app = express(); // creating a new app from express
 
-app.use("/hello", (req, res) => {
-  res.send("Hello Hello Hello from Bhavana!");
+const { adminAuth, userAuth } = require("./middleware/auth");
+
+app.use("/admin", adminAuth);
+
+app.post("/user/login", userAuth, (req, res) => {
+  res.send("User is logged in successfully");
 });
 
-app.use("/test", (req, res) => {
-  res.send("Hello from the server!");
-}); //this calback function is called Request handler
+app.get("/user/data", (req, res) => {
+  try {
+    throw new Error("Invalid data");
+    res.send("User data sent");
+  } catch (err) {
+    res.status(500).send("Contact Support!!");
+  }
+});
+
+app.get("/admin/data", (req, res) => {
+  res.send("All the admin data sent");
+});
+
+app.use("/", (err, req, res, next) => {
+  res.status(500).send("Error needs to be handled");
+});
 
 app.listen(7777, () => {
   console.log("Server is successfully listening on Port 7777...");
