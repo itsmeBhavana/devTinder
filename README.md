@@ -3,12 +3,18 @@
 - Fast, unopinionated, minimalist, web framework for node.js
 - next() is provided by express library that is the third argument of the callback function and is used to call the next route handler
 - All the callback functions are also called as route handler/request handler/middleware
+- express.json() middleware is given by express that converts all the JSON into JS objects when used as app.use(express.json());
 
 # Error Handling
 
 - Good way to handle errors is to use try catch block Always
 - Another alternate way is to use a middleware function addressing all routes app.use("/",(err,req,res,next)=>{})
 - err,req,res,next ios the sequence of the parameters
+
+# Validators in schema
+
+- validation function will be working by default only on creation APIs. For them to work on updation APIs, runValidators attribute should be added.
+- Validators like type, default, required, minLength, maxLength, unique, lowercase, min, max, validate(), trim
 
 # Notes
 
@@ -31,9 +37,10 @@
 - It is very important that first we connect to the db and then only we listen to the server
   - It would be a pretty bad practise, if we are connected to the server but APIs are not working cause we're not connected to the db yet.
   - So, ALWAYS connect to your db and then call app.listen()
-- MongoDB fields have _id and __v created by mongodb itself
-  
+- MongoDB fields have \_id and \_\_v created by mongodb itself
+
   ## Process to store data
+
   - create a free cluster
   - install mongoose
   - connect ur application to the db using connection string
@@ -46,5 +53,7 @@
 
 - Why are we adding package-lock.json and package.json to git
 - difference between app.use and app.all
-- What is __v in the Mogodb fields
-- Read more on _id and __v
+- What is \_\_v in the Mogodb fields
+- Read more on \_id and \_\_v
+- Difference between JS object and JSON
+- Difference between PATCH and PUT
