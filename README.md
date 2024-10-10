@@ -15,6 +15,8 @@
 
 - validation function will be working by default only on creation APIs. For them to work on updation APIs, runValidators attribute should be added.
 - Validators like type, default, required, minLength, maxLength, unique, lowercase, min, max, validate(), trim
+- bcrypt is a package in npm that is used to encrypt our passwords and validate them.
+  - More the number of salt rounds, tougher will be the password to break
 
 # Notes
 
