@@ -18,6 +18,13 @@
 - bcrypt is a package in npm that is used to encrypt our passwords and validate them.
   - More the number of salt rounds, tougher will be the password to break
 
+# JWT Token
+- JSON Web Token which is an encrypted way to store the information. 
+- It contains header, payload and signature. 
+- We hide the information in the payload
+- JWT uses the signature to check if the token is valid or not
+- jsonwebtoken is a good package to use
+
 # Notes
 
 - v1.2.3

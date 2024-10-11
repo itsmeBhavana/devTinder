@@ -4,10 +4,13 @@ const User = require("./models/user");
 const { validateSignupData } = require("./utils/validation");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
 
 const app = express(); // creating a new app from express
 
 app.use(express.json());
+app.use(cookieParser());
 
 //Signup API
 app.post("/signup", async (req, res) => {
@@ -43,8 +46,36 @@ app.post("/login", async (req, res) => {
 
     //compare the password entered(password) to the password of the user in the db(user.password)
     const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (isPasswordValid) res.send("Login Successful!!!");
-    else throw new Error("Invalid Creadentials");
+    if (isPasswordValid) {
+      //Create a JWT token
+      const token = await jwt.sign({ _id: user._id }, "Bhavana@123");
+      //userid of the user will be stored in the token
+
+      //Add the token to cookie and send the response back to the user
+      res.cookie("token", token);
+      res.send("Login Successful!!!");
+    } else throw new Error("Invalid Creadentials");
+  } catch (err) {
+    res.status(400).send("ERROR: " + err.message);
+  }
+});
+
+app.get("/profile", async (req, res) => {
+  try {
+    const cookies = req.cookies;
+    const { token } = cookies;
+    if (!token) throw new Error("Invalid Token");
+    //validate my token
+    const decodedMessage = await jwt.verify(token, "Bhavana@123");
+    console.log(decodedMessage);
+
+    const { _id } = decodedMessage;
+
+    const user = await User.findById(_id);
+    if (!user) throw new Error("User does not exist");
+
+    console.log(cookies);
+    res.send(user);
   } catch (err) {
     res.status(400).send("ERROR: " + err.message);
   }
