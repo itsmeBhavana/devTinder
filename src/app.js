@@ -5,7 +5,6 @@ const { validateSignupData } = require("./utils/validation");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
 const cookieParser = require("cookie-parser");
-const jwt = require("jsonwebtoken");
 const { userAuth } = require("../src/middleware/auth");
 
 const app = express(); // creating a new app from express
@@ -48,7 +47,7 @@ app.post("/login", async (req, res) => {
     //compare the password entered(password) to the password of the user in the db(user.password)
     const isPasswordValid = await user.validatePassword(password);
     if (isPasswordValid) {
-      const token = user.getJWT();
+      const token = await user.getJWT();
 
       //Add the token to cookie and send the response back to the user
       res.cookie("token", token);
