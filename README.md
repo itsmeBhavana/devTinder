@@ -5,6 +5,9 @@
 - All the callback functions are also called as route handler/request handler/middleware
 - express.json() middleware is given by express that converts all the JSON into JS objects when used as app.use(express.json());
 
+  # Express Router
+  - The best industry practise is to create greoup all the APIs and create different routers
+
 # Error Handling
 
 - Good way to handle errors is to use try catch block Always
