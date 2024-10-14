@@ -64,6 +64,9 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+//optimizing using compound index
+userSchema.index({ firstName: 1, lastName: 1 }); //1 is asc and -1 is desc
+
 //Always do not use Arrow function since we will be using this keyword
 //Create a JWT token
 userSchema.methods.getJWT = async function () {

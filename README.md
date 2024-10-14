@@ -6,6 +6,7 @@
 - express.json() middleware is given by express that converts all the JSON into JS objects when used as app.use(express.json());
 
   # Express Router
+
   - The best industry practise is to create greoup all the APIs and create different routers
 
 # Error Handling
@@ -22,8 +23,9 @@
   - More the number of salt rounds, tougher will be the password to break
 
 # JWT Token
-- JSON Web Token which is an encrypted way to store the information. 
-- It contains header, payload and signature. 
+
+- JSON Web Token which is an encrypted way to store the information.
+- It contains header, payload and signature.
 - We hide the information in the payload
 - JWT uses the signature to check if the token is valid or not
 - jsonwebtoken is a good package to use
@@ -50,6 +52,7 @@
   - It would be a pretty bad practise, if we are connected to the server but APIs are not working cause we're not connected to the db yet.
   - So, ALWAYS connect to your db and then call app.listen()
 - MongoDB fields have \_id and \_\_v created by mongodb itself
+- unique:true automatically indexes the collection. Otherwise, we have to use index:true
 
   ## Process to store data
 
@@ -69,3 +72,5 @@
 - Read more on \_id and \_\_v
 - Difference between JS object and JSON
 - Difference between PATCH and PUT
+- optimizing using compound index
+- $or in mongodb
