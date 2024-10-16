@@ -64,6 +64,16 @@
   - enclose all the db related code inside try block
   - Push some documents using API calls using Postman
 
+# Pagination
+
+- skip() and limit() are two very important functions in Mongodb
+- skip() skips the first specified number of users
+- limit() returns the specified number of users
+  - /feed?page=1&limit=10 => .skip(0) & .limit(10)
+  - /feed?page=2&limit=10 => .skip(10) & .limit(10)
+  - /feed?page=3&limit=10 => .skip(20) & .limit(10)
+  - Formula for skip is skip=(page-1)*limit;
+
 # Howework
 
 - Why are we adding package-lock.json and package.json to git
