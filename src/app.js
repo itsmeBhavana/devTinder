@@ -5,7 +5,15 @@ const cors = require("cors");
 
 const app = express(); // creating a new app from express
 
-app.use(cors());
+app.use(
+  cors(
+    {
+      origin: "localhost:5173",
+      credentials: true,
+    },
+    { widthCredentials: true }
+  )
+);
 app.use(express.json());
 app.use(cookieParser());
 
