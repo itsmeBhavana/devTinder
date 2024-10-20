@@ -20,8 +20,13 @@ authRouter.post("/signup", async (req, res) => {
       password: passwordHash,
     }); //creating a new instance of the user model
 
-    await user.save();
-    res.send("User added sucessfully");
+    const savedUser = await user.save();
+    const token = await user.getJWT();
+
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 8 * 3600000),
+    });
+    res.json({ message: "User added sucessfully", data: savedUser });
   } catch (err) {
     res.status(401).send("ERROR : " + err.message);
   }
